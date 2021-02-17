@@ -149,12 +149,20 @@ def trianglew_saw(ctx, t: float, A: float, T: float) -> float:
         return A*(abs((4/ctx.pi)*ctx.atan(ctx.cot((t*ctx.pi/T) - ctx.pi/4))) - 1)
 
 
+def triangle_wave(x, frange=(-1, 1), period=1):
+    A = frange[1] - frange[0]
+    bottom = frange[0]
+    P = period
+
+    return A*(1-2*mp.fabs(0.5-mp.frac(x/P+0.25))) + bottom
+
+
 def sawtoothw(ctx, t: float, A: float, T: float) -> float:
     r"""
     Computes the sawtooth wave function using the definition:
 
     .. math::
-        x(t) = -(\frac{2A}{\pi})\arctan(\cot(\frac{\pi t}{T}))
+        x(t) = A(-\frac{1}{\pi}\arctan(\cot(\frac{x\pi}{T})) + 0.5)
 
     where T is the period and A is the amplitude.
 
@@ -163,25 +171,21 @@ def sawtoothw(ctx, t: float, A: float, T: float) -> float:
     Sawtooth wave with period = 2, amplitude = 1 ::
 
         >>> sawtoothw(0,1,2)
-        -1.0
-        >>> sawtoothw(0.25,1,2)
-        -0.75
+        0
         >>> sawtoothw(0.5,1,2)
-        -0.5
+        0.25
         >>> sawtoothw(1,1,2)
-        0.0
-        >>> sawtoothw(1.5,1,2)
         0.5
+        >>> sawtoothw(1.5,1,2)
+        0.75
         >>> sawtoothw(2,1,2)
-        -1.0
+        1.0
     """
     n = t*ctx.pi/T
-    if n % ctx.pi == 0:
-        return -(2*A/ctx.pi)*(ctx.pi/2)
-    elif (n - ctx.pi/2) % ctx.pi == 0:
-        return 0.0
+    if n == 0:
+        return 0
     else:
-        return -(2*A/ctx.pi)*ctx.atan(ctx.cot(t*ctx.pi/T))
+        return A*((-1/ctx.pi)*ctx.atan(ctx.cot(n)) + 0.5)
 
 
 def sawtoothw_mod(ctx, t: float, A: float, T: float) -> float:
@@ -189,7 +193,7 @@ def sawtoothw_mod(ctx, t: float, A: float, T: float) -> float:
     Computes the sawtooth wave function using the definition:
 
     .. math::
-        x(t) = A(\frac{2}{T}(t \bmod T) - 1)
+        x(t) = \frac{A}{T}(t \bmod T)
 
     where T is the period and A is the amplitude.
 
@@ -198,19 +202,17 @@ def sawtoothw_mod(ctx, t: float, A: float, T: float) -> float:
     Sawtooth wave with period = 2, amplitude = 1 ::
 
         >>> sawtoothw_mod(0,1,2)
-        -1.0
-        >>> sawtoothw_mod(0.25,1,2)
-        -0.75
-        >>> sawtoothw_mod(0.5,1,2)
-        -0.5
-        >>> sawtoothw_mod(1,1,2)
         0.0
-        >>> sawtoothw_mod(1.5,1,2)
+        >>> sawtoothw_mod(0.5,1,2)
+        0.25
+        >>> sawtoothw_mod(1,1,2)
         0.5
+        >>> sawtoothw_mod(1.5,1,2)
+        0.75
         >>> sawtoothw_mod(2,1,2)
-        -1.0
+        0.0
     """
-    return A*((2/T)*ctx.fmod(t, T) - 1)
+    return (A/T)*ctx.fmod(t, T)
 
 
 def sawtoothw_floor(ctx, t: float, A: float, T: float) -> float:
@@ -218,7 +220,7 @@ def sawtoothw_floor(ctx, t: float, A: float, T: float) -> float:
     Computes the sawtooth wave function using the definition:
 
     .. math::
-        x(t) = A(2(\frac{t}{T} - \left\lfloor{\frac{t}{T}}\right\rfloor) - 1)
+        x(t) = A(\frac{t}{T} - \left\lfloor{\frac{t}{T}}\right\rfloor)
 
     where T is the period and A is the amplitude.
 
@@ -227,19 +229,21 @@ def sawtoothw_floor(ctx, t: float, A: float, T: float) -> float:
     Sawtooth wave with period = 2, amplitude = 1 ::
 
         >>> sawtoothw_floor(0,1,2)
-        -1.0
-        >>> sawtoothw_floor(0.25,1,2)
-        -0.75
-        >>> sawtoothw_floor(0.5,1,2)
-        -0.5
-        >>> sawtoothw_floor(1,1,2)
         0.0
-        >>> sawtoothw_floor(1.5,1,2)
+        >>> sawtoothw_floor(0.5,1,2)
+        0.25
+        >>> sawtoothw_floor(1,1,2)
         0.5
+        >>> sawtoothw_floor(1.5,1,2)
+        0.75
         >>> sawtoothw_floor(2,1,2)
-        -1.0
+        0.0
     """
-    return A*(2*((t/T) - ctx.floor(t/T)) - 1)
+    return A*((t/T) - ctx.floor(t/T))
+
+
+def sawtooth_wave(ctx, t: float, A: float, T: float) -> float:
+    return A*ctx.mp.frac(t/T)
 
 
 def unit_triangle(t: float, A: float) -> float:
