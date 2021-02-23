@@ -9,9 +9,7 @@ Square wave signal
 :func:`squarew`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.squarew(t: float,A: float,T: float) -> float
-.. autofunction:: mpmath.squarew_floor(t: float,A: float,T: float) -> float
-.. autofunction:: mpmath.squarew_floor_ex(t: float,A: float,T: float) -> float
+.. autofunction:: mpmath.squarew(t, amplitude, period)
 
 Triangle wave signal
 ...............................
@@ -19,8 +17,7 @@ Triangle wave signal
 :func:`trianglew`
 ^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.trianglew(t: float,A: float,T: float) -> float
-.. autofunction:: mpmath.trianglew_saw(t: float,A: float,T: float) -> float
+.. autofunction:: mpmath.trianglew(t, amplitude, period)
 
 Sawtooth wave signal
 ......................
@@ -28,9 +25,7 @@ Sawtooth wave signal
 :func:`sawtoothw`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.sawtoothw(t: float,A: float,T: float) -> float
-.. autofunction:: mpmath.sawtoothw_mod(t: float,A: float,T: float) -> float
-.. autofunction:: mpmath.sawtoothw_floor(t: float,A: float,T: float) -> float
+.. autofunction:: mpmath.sawtoothw(t, amplitude, period)
 
 Unit triangle signal
 .....................
@@ -38,7 +33,7 @@ Unit triangle signal
 :func:`unit_triangle`
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.unit_triangle(t: float,A: float) -> float
+.. autofunction:: mpmath.unit_triangle(t, amplitude)
 
 Sigmoid wave signal
 .....................
@@ -46,4 +41,4 @@ Sigmoid wave signal
 :func:`sigmoidw`
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.sigmoidw(t: float,A: float) -> float
+.. autofunction:: mpmath.sigmoidw(t, amplitude)
