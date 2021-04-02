@@ -38,7 +38,7 @@ Unit triangle signal
 Sigmoid wave signal
 .....................
 
-:func:`sigmoidw`
+:func:`sigmoid`
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autofunction:: mpmath.sigmoidw(t, amplitude=1)
+.. autofunction:: mpmath.sigmoid(t, amplitude=1)

@@ -124,13 +124,13 @@ def unit_triangle(t, amplitude=1):
     """
     A = amplitude
     if t <= -1 or t >= 1:
-        return 0
+        return ctx.zero
     return A*(-abs(t) + 1)
 
 
-def sigmoidw(ctx, t, amplitude=1):
+def sigmoid(ctx, t, amplitude=1):
     r"""
-    Computes the sigmoid wave function using the definition:
+    Computes the sigmoid function using the definition:
 
     .. math::
         x(t) = \frac{A}{1 + e^{-t}}
@@ -139,19 +139,19 @@ def sigmoidw(ctx, t, amplitude=1):
 
     **Examples**
 
-    Sigmoid wave with amplitude = 1 ::
+    Sigmoid function with amplitude = 1 ::
 
         >>> from mpmath import *
         >>> mp.dps = 25; mp.pretty = True
-        >>> sigmoidw(-1,1)
+        >>> sigmoid(-1,1)
         0.2689414213699951207488408
-        >>> sigmoidw(-0.5,1)
+        >>> sigmoid(-0.5,1)
         0.3775406687981454353610994
-        >>> sigmoidw(0,1)
+        >>> sigmoid(0,1)
         0.5
-        >>> sigmoidw(0.5,1)
+        >>> sigmoid(0.5,1)
         0.6224593312018545646389006
-        >>> sigmoidw(1,1)
+        >>> sigmoid(1,1)
         0.7310585786300048792511592
 
     """
